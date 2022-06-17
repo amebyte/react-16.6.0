@@ -129,7 +129,7 @@ function scheduleRootUpdate(
       );
     }
   }
-
+  // 用来标记React应用当中需要更新的位置
   const update = createUpdate(expirationTime);
   // Caution: React DevTools currently depends on this property
   // being called "element".
@@ -145,6 +145,7 @@ function scheduleRootUpdate(
     );
     update.callback = callback;
   }
+  // 把 update 设置到当前fiber节点上的queueUpdate，可以在一次更新当中，在这个节点上有多次更新，就是在一个react应用的更新过程当中，会有多个更新在同一个fiber中
   enqueueUpdate(current, update);
 
   scheduleWork(current, expirationTime);

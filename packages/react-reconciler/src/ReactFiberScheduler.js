@@ -1649,15 +1649,18 @@ function scheduleWorkToRoot(fiber: Fiber, expirationTime): FiberRoot | null {
   // Walk the parent path to the root and update the child expiration time.
   let node = fiber.return;
   let root = null;
+  // 找到根 root 
   if (node === null && fiber.tag === HostRoot) {
     root = fiber.stateNode;
   } else {
+    // 循环找根 root
     while (node !== null) {
       alternate = node.alternate;
       if (
         node.childExpirationTime === NoWork ||
         node.childExpirationTime > expirationTime
       ) {
+        // 通过 node.childExpirationTime > expirationTime 比对，看看父级记录的childExpirationTime是否是优先级最高的，如果不是则设置成最高的
         node.childExpirationTime = expirationTime;
         if (
           alternate !== null &&
@@ -1673,6 +1676,7 @@ function scheduleWorkToRoot(fiber: Fiber, expirationTime): FiberRoot | null {
       ) {
         alternate.childExpirationTime = expirationTime;
       }
+      // 找到根 root
       if (node.return === null && node.tag === HostRoot) {
         root = node.stateNode;
         break;
@@ -1730,7 +1734,7 @@ function scheduleWork(fiber: Fiber, expirationTime: ExpirationTime) {
   if (root === null) {
     return;
   }
-
+  // nextRenderExpirationTime !== NoWork 表示是一个异步的任务，并且执行到一半了,还没有执行完，现在要被打断了，要把执行权交给浏览器去执行更高优先级的任务
   if (
     !isWorking &&
     nextRenderExpirationTime !== NoWork &&
@@ -1738,6 +1742,7 @@ function scheduleWork(fiber: Fiber, expirationTime: ExpirationTime) {
   ) {
     // This is an interruption. (Used for performance tracking.)
     interruptedBy = fiber;
+    // 代表新的优先级高的任务打断了旧的优先级任务
     resetStack();
   }
   markPendingPriorityLevel(root, expirationTime);

@@ -1975,6 +1975,12 @@ function requestCurrentTime() {
 
 // requestWork is called by the scheduler whenever a root receives an update.
 // It's up to the renderer to call renderRoot at some point in the future.
+/**
+ * 
+ * 加入到root调度队列
+ * 判断是否批量跟新
+ * 根据expirationTime判断调度类型
+ */
 function requestWork(root: FiberRoot, expirationTime: ExpirationTime) {
   addRootToSchedule(root, expirationTime);
   if (isRendering) {
@@ -2007,6 +2013,7 @@ function addRootToSchedule(root: FiberRoot, expirationTime: ExpirationTime) {
   // Add the root to the schedule.
   // Check if this root is already part of the schedule.
   if (root.nextScheduledRoot === null) {
+    // 说这个root之前没有进行过调度
     // This root is not already scheduled. Add it.
     root.expirationTime = expirationTime;
     if (lastScheduledRoot === null) {

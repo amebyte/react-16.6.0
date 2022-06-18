@@ -1627,11 +1627,16 @@ function scheduleWorkToRoot(fiber: Fiber, expirationTime): FiberRoot | null {
   }
 
   // Update the source fiber's expiration time
+  // 参数 expirationTime 是创建 update 任务时创建的
+  // update对象的expirationTime和fiber对象的expirationTime有什么区别或者关联呢？
+  // update是对应某个更新操作。fiber是对应某个节点的，一个节点上可以同时存在多个更新。
+  // 更新完成之后 fiber.expirationTime 会被清空
   if (
     fiber.expirationTime === NoWork ||
     fiber.expirationTime > expirationTime
   ) {
-    fiber.expirationTime = expirationTime;
+    // fiber.expirationTime > expirationTime 表示之前的更新的优先级要低于当前的更新的优先级
+    fiber.expirationTime = expirationTime; // 设置成优先级更高的
   }
   let alternate = fiber.alternate;
   if (

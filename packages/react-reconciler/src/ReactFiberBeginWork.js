@@ -1470,6 +1470,7 @@ function bailoutOnAlreadyFinishedWork(
 
   // Check if the children have any pending work.
   const childExpirationTime = workInProgress.childExpirationTime;
+  // 跳过子树的更新
   if (
     childExpirationTime === NoWork ||
     childExpirationTime > renderExpirationTime

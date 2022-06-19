@@ -1123,6 +1123,7 @@ function workLoop(isYieldy) {
     }
   } else {
     // Flush asynchronous work until the deadline runs out of time.
+    // 判断当前的时间片里面是否还有足够时间进行渲染
     while (nextUnitOfWork !== null && !shouldYield()) {
       nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
     }

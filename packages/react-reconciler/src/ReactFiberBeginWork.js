@@ -1578,6 +1578,7 @@ function beginWork(
           break;
         }
       }
+      // 可以跳过这个节点以及它的子节点的更新
       return bailoutOnAlreadyFinishedWork(
         current,
         workInProgress,

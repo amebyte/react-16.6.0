@@ -235,6 +235,7 @@ function flushWork(didTimeout) {
           flushFirstCallback();
         } while (
           firstCallbackNode !== null &&
+          // 这一帧还有剩余时间的时候
           getFrameDeadline() - getCurrentTime() > 0
         );
       }

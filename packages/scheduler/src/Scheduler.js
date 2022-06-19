@@ -216,6 +216,7 @@ function flushWork(didTimeout) {
         // earlier than that time. Then read the current time again and repeat.
         // This optimizes for as few performance.now calls as possible.
         var currentTime = getCurrentTime();
+        // 把过期的任务强制输出
         if (firstCallbackNode.expirationTime <= currentTime) {
           do {
             flushFirstCallback();
@@ -574,6 +575,7 @@ if (typeof window !== 'undefined' && window._schedMock) {
     var currentTime = getCurrentTime();
 
     var didTimeout = false;
+    // 是否还有帧时间
     if (frameDeadline - currentTime <= 0) {
       // There's no time left in this idle period. Check if the callback has
       // a timeout and whether it's been exceeded.
@@ -624,7 +626,7 @@ if (typeof window !== 'undefined' && window._schedMock) {
       isAnimationFrameScheduled = false;
       return;
     }
-
+    // 计算到下一帧可以执行的时间有多少
     var nextFrameTime = rafTime - frameDeadline + activeFrameTime;
     if (
       nextFrameTime < activeFrameTime &&

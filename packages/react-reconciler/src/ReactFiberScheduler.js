@@ -2045,6 +2045,7 @@ function findHighestPriorityRoot() {
     let root = firstScheduledRoot;
     while (root !== null) {
       const remainingExpirationTime = root.expirationTime;
+      // 代表该节点没有任何更新
       if (remainingExpirationTime === NoWork) {
         // This root no longer has work. Remove it from the scheduler.
 
@@ -2056,6 +2057,7 @@ function findHighestPriorityRoot() {
           'Should have a previous and last root. This error is likely ' +
             'caused by a bug in React. Please file an issue.',
         );
+        // 说明整个应用只有一个root节点在执行
         if (root === root.nextScheduledRoot) {
           // This is the only root in the list.
           root.nextScheduledRoot = null;
@@ -2299,9 +2301,11 @@ function performWorkOnRoot(
         // $FlowFixMe Complains noTimeout is not a TimeoutID, despite the check above
         cancelTimeout(timeoutHandle);
       }
+      // 代表该任务可以中断
       const isYieldy = true;
       renderRoot(root, isYieldy, isExpired);
       finishedWork = root.finishedWork;
+      // 如果任务被中断了，则没有完成的任务 finishedWork === null
       if (finishedWork !== null) {
         // We've completed the root. Check the deadline one more time
         // before committing.

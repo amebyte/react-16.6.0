@@ -1482,6 +1482,7 @@ function bailoutOnAlreadyFinishedWork(
   } else {
     // This fiber doesn't have work, but its subtree does. Clone the child
     // fibers and continue.
+    // 如果有更新要执行
     cloneChildFibers(current, workInProgress);
     return workInProgress.child;
   }

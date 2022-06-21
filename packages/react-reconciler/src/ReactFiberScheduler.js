@@ -894,7 +894,7 @@ function completeUnitOfWork(workInProgress: Fiber): Fiber | null {
 
     const returnFiber = workInProgress.return;
     const siblingFiber = workInProgress.sibling;
-
+    // Incomplete 有错误
     if ((workInProgress.effectTag & Incomplete) === NoEffect) {
       // This fiber completed.
       if (enableProfilerTimer) {

@@ -1615,6 +1615,7 @@ function retrySuspendedRoot(
 
   const rootExpirationTime = root.expirationTime;
   if (rootExpirationTime !== NoWork) {
+    // 请求工作调度
     requestWork(root, rootExpirationTime);
   }
 }
@@ -1758,6 +1759,7 @@ function scheduleWork(fiber: Fiber, expirationTime: ExpirationTime) {
     nextRoot !== root
   ) {
     const rootExpirationTime = root.expirationTime;
+    // 请求工作调度
     requestWork(root, rootExpirationTime);
   }
   if (nestedUpdateCount > NESTED_UPDATE_LIMIT) {

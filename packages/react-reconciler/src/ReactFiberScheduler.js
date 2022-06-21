@@ -875,7 +875,9 @@ function resetChildExpirationTime(
 
   workInProgress.childExpirationTime = newChildExpirationTime;
 }
-
+// 根据是否有中断调用不同的处理方法
+// 判断是否有兄弟节点执行不同的操作
+// 完成节点之后赋值effect链
 function completeUnitOfWork(workInProgress: Fiber): Fiber | null {
   // Attempt to complete the current unit of work, then move to the
   // next sibling. If there are no more siblings, return to the

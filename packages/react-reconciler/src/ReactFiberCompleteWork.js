@@ -528,7 +528,8 @@ if (supportsMutation) {
     // Noop
   };
 }
-
+// 在节点正常渲染，没有出错的情况下，会调用
+// 对这个节点完成工作的一些操作
 function completeWork(
   current: Fiber | null,
   workInProgress: Fiber,

@@ -530,6 +530,9 @@ if (supportsMutation) {
 }
 // 在节点正常渲染，没有出错的情况下，会调用
 // 对这个节点完成工作的一些操作
+// beginWork是一个正向的流程，completeWork则是一个反向的流程
+// 对 HostComponent 执行初始化
+// 初始化监听事件
 function completeWork(
   current: Fiber | null,
   workInProgress: Fiber,

@@ -630,10 +630,10 @@ export function diffProperties(
   let styleName;
   let styleUpdates = null;
   for (propKey in lastProps) {
-    if (
-      nextProps.hasOwnProperty(propKey) ||
-      !lastProps.hasOwnProperty(propKey) ||
-      lastProps[propKey] == null
+    if ( // 如果不符合这个判断那么就是删除
+      nextProps.hasOwnProperty(propKey) || // 如果新的也有
+      !lastProps.hasOwnProperty(propKey) || // 如果老的没有
+      lastProps[propKey] == null // 如果老的为 null
     ) {
       continue;
     }

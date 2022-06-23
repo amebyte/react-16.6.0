@@ -168,6 +168,7 @@ if (supportsMutation) {
     workInProgress.updateQueue = (updatePayload: any);
     // If the update payload indicates that there is a change or if there
     // is a new ref we mark this as an update. All the work is done in commitWork.
+    // 因为返回的是一个空数组，即便 oldProps，newProps没有更新，也会进行 markUpdate
     if (updatePayload) {
       markUpdate(workInProgress);
     }

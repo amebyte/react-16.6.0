@@ -762,7 +762,8 @@ function ChildReconciler(shouldTrackSideEffects) {
         knownKeys = warnOnInvalidKey(child, knownKeys);
       }
     }
-
+    // 新老 children 的对比，以及判断节点是否可以复用过程，这个过程会涉及到 react 的 diff 算法，
+    // 这个算法尽量减少数组的遍历的次数来达到复用旧节点的过程
     let resultingFirstChild: Fiber | null = null;
     let previousNewFiber: Fiber | null = null;
 

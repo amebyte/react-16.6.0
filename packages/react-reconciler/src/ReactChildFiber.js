@@ -766,12 +766,14 @@ function ChildReconciler(shouldTrackSideEffects) {
     // 这个算法尽量减少数组的遍历的次数来达到复用旧节点的过程
     let resultingFirstChild: Fiber | null = null;
     let previousNewFiber: Fiber | null = null;
-
+    // 上一次渲染完成之后的当前节点的第一个child节点
     let oldFiber = currentFirstChild;
     let lastPlacedIndex = 0;
     let newIdx = 0;
     let nextOldFiber = null;
     for (; oldFiber !== null && newIdx < newChildren.length; newIdx++) {
+      // 在 react 渲染整个数组的过程当中会在每一个 fiber 节点上设置一个 index 属性
+      // 也就是这个节点在这个 children 数组里面的位置
       if (oldFiber.index > newIdx) {
         nextOldFiber = oldFiber;
         oldFiber = null;

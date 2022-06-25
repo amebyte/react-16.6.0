@@ -787,7 +787,8 @@ function ChildReconciler(shouldTrackSideEffects) {
         expirationTime,
       );
       // 不能复用
-      // 就是以相同的顺序
+      // 就是以相同的顺序去分别遍历新老的children它们对应的节点，然后判断他们的key是否相等
+      // 如果不相同就跳出循环
       if (newFiber === null) {
         // TODO: This breaks on empty slots like null children. That's
         // unfortunate because it triggers the slow path all the time. We need

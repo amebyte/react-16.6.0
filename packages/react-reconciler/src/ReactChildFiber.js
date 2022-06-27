@@ -324,6 +324,7 @@ function ChildReconciler(shouldTrackSideEffects) {
     const current = newFiber.alternate;
     if (current !== null) {
       const oldIndex = current.index;
+      // 去老fiber链表中找到的fiber的位置，如果比上次协调的位置小，就需要移动，而且继续返回上次协调的位置
       if (oldIndex < lastPlacedIndex) {
         // This is a move.
         newFiber.effectTag = Placement;
